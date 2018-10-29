@@ -15,7 +15,8 @@ export default class MediaCard extends React.Component {
       artistName,
       artworkUrl100,
       previewUrl,
-      handlePlay
+      handlePlay,
+      trackId
     } = this.props;
     return (
       <Card title={trackName} containerStyle={styles.containerStyle}>
@@ -31,7 +32,7 @@ export default class MediaCard extends React.Component {
           backgroundColor="#03A9F4"
           buttonStyle={styles.button}
           title="Play Sample"
-          onPress={() => handlePlay(previewUrl)}
+          onPress={() => handlePlay(previewUrl, trackId)}
         />
       </Card>
     );

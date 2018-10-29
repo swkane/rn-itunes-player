@@ -11,7 +11,8 @@ export default class List extends React.Component {
     query: "",
     results: [],
     currentSound: {},
-    songLoaded: false
+    songLoaded: false,
+    currentTrackId: ""
   };
 
   getSongs = query => {
@@ -22,15 +23,27 @@ export default class List extends React.Component {
       });
   };
 
-  handlePlay = async uri => {
+  handlePlay = async (uri, trackId) => {
     if (this.state.songLoaded) {
+      if (this.state.currentTrackId == trackId) {
+        // console.log("pause");
+        await this.state.currentSound.stopAsync();
+        this.setState({ currentTrackId: "" });
+        return;
+      }
+      // console.log("stop previous")
       await this.state.currentSound.stopAsync();
     }
+    // console.log("play")
     const source = { uri };
     await Audio.setIsEnabledAsync(true);
     const sound = new Audio.Sound();
     await sound.loadAsync(source);
-    await this.setState({ currentSound: sound, songLoaded: true });
+    await this.setState({
+      currentSound: sound,
+      songLoaded: true,
+      currentTrackId: trackId
+    });
     try {
       await this.state.currentSound.playAsync();
     } catch (error) {
