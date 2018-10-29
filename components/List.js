@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { SearchBar } from "react-native-elements";
-import { Constants, Audio } from "expo";
+import { Audio } from "expo";
 
 import { baseURL } from "../config.json";
 import Card from "./Card.js";
