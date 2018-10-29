@@ -58,9 +58,10 @@ export default class List extends React.Component {
           <SearchBar
             rounded
             lightTheme
-            style={styles.search}
+            inputStyle={styles.search}
             value={this.state.query}
             onChangeText={query => this.setState({ query })}
+            clearIcon
             onSubmitEditing={() => this.getSongs(this.state.query)}
             placeholder="Type Here..."
             autoCorrect={false}
@@ -77,9 +78,9 @@ export default class List extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "90%"
+    width: "100%"
   },
   search: {
-    // width: "80%"
+    color: "black"
   }
 });

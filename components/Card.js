@@ -1,14 +1,8 @@
 import React from "react";
 import { Text, StyleSheet, Image } from "react-native";
 import { Card, Button } from "react-native-elements";
-import { Constants, Audio } from "expo";
 
 export default class MediaCard extends React.Component {
-  state = {
-    isPlaying: false,
-    sound: {}
-  };
-
   render() {
     const {
       trackName,
