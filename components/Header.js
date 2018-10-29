@@ -4,7 +4,7 @@ import { Header } from "react-native-elements";
 export default () => (
   <Header
     centerComponent={{
-      text: "iTunes Player",
+      text: "iTunes Sampler",
       style: { color: "#fff", fontSize: 20 }
     }}
   />
