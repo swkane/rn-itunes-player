@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { SearchBar } from "react-native-elements";
+import { Constants, Audio } from "expo";
 
 import { baseURL } from "../config.json";
 import Card from "./Card.js";
@@ -8,7 +9,9 @@ import Card from "./Card.js";
 export default class List extends React.Component {
   state = {
     query: "",
-    results: []
+    results: [],
+    currentSound: {},
+    songLoaded: false
   };
 
   getSongs = query => {
@@ -17,6 +20,22 @@ export default class List extends React.Component {
       .then(data => {
         this.setState({ results: data.results });
       });
+  };
+
+  handlePlay = async uri => {
+    if (this.state.songLoaded) {
+      await this.state.currentSound.stopAsync();
+    }
+    const source = { uri };
+    await Audio.setIsEnabledAsync(true);
+    const sound = new Audio.Sound();
+    await sound.loadAsync(source);
+    await this.setState({ currentSound: sound, songLoaded: true });
+    try {
+      await this.state.currentSound.playAsync();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {
@@ -34,7 +53,7 @@ export default class List extends React.Component {
             autoCorrect={false}
           />
           {this.state.results.map(song => (
-            <Card key={song.trackId} {...song} />
+            <Card key={song.trackId} handlePlay={this.handlePlay} {...song} />
           ))}
         </ScrollView>
       </View>
